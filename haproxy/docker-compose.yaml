@@ -1,0 +1,34 @@
+version : '3.2'
+services:
+    lb:
+        image: haproxy:2.2
+        hostname: haproxy
+        restart: always
+        ports:
+            - "80:80"
+            - "8080:8080"
+        volumes:
+            - ./config:/usr/local/etc/haproxy
+        deploy:
+            resources:
+                limits:
+                    memory: 500M
+        container_name: Haproxy
+    app1:
+        image: nginx
+        hostname: app1
+        restart: always
+        deploy:
+            resources:
+                limits:
+                    memory: 500M
+        container_name: app1
+    app2:
+        image: nginx
+        hostname: app2
+        restart: always
+        deploy:
+            resources:
+                limits:
+                    memory: 500M
+        container_name: app2
